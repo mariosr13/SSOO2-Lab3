@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*   Proyect                 : Práctica 3 Sistemas Operativos II
+*   Project                 : Práctica 3 Sistemas Operativos II
 *
 *   Name of the program     : Client.hpp
 *
@@ -51,7 +51,6 @@ class Client{
 		SearchRequest doSearchRequest();
         void createFiles(ReplySearch replay_search);
 		bool dirExists(std::string dir);
-        // void createTimeFile(double time);
 		int operator()(int number);
 };
 

@@ -24,7 +24,9 @@ std::vector<std::string> openFile(std::string file){
 	std::ifstream ifs;
 	std::vector<std::string> arrayLine;
 	std::string line;
+	
 	ifs.open(file, std::ios::in);
+	
 	if(ifs.fail()){
 		std::cerr << RED << "\nError, the file " << file << " could not be open" << std::endl;
 	}else{
@@ -33,20 +35,23 @@ std::vector<std::string> openFile(std::string file){
 			arrayLine.insert(arrayLine.end(), line);
 		}
 	}
+
 	return arrayLine;
 };
+
 
 std::vector<std::string> split(std::string str){	
 	std::vector<std::string> string_vector;
 	std::istringstream isstream(str);
 	std::string word;
+
 	while(isstream >> word){
 		string_vector.push_back(word);
 	}
+
 	return string_vector;
 }
 
-// Funtion used to transform a string into lowercase.
 std::string convertToLower(std::string line){
     for(int i = 0; i < line.length(); i++){
         line[i] = tolower(line[i]);
@@ -56,7 +61,9 @@ std::string convertToLower(std::string line){
 
 std::priority_queue<Search, std::vector<Search>, PriorityFunction> findWord(std::vector<std::string> string_vector ,std::string searched_word, int id_linea, int thread_id, int min_limit, int max_limit, std::priority_queue<Search, std::vector<Search>, PriorityFunction> pq){ 
 	std::string text;
+	
 	searched_word = convertToLower(searched_word);
+
 	for(int i = 0; i < string_vector.size();i++){
 		if(compareWords(searched_word, string_vector[i]) == true) {	
 			if(i == 0 && string_vector.size()>1){
@@ -74,12 +81,15 @@ std::priority_queue<Search, std::vector<Search>, PriorityFunction> findWord(std:
 			pq.push(search);
 		}
 	}
+
 	return pq;
 }
 
+// We use this method to find the words with and without a symbol next to them.
 bool compareWords(std::string word, std::string result){	
 	bool coincidence_found = false;
 	std::vector<std::string> symbols = {"!","¡","·","$","%","&","/","(",")","=","?","¿",",","^","]","[","-","_","@","*","|",">","<","#","+","{","}","¬",".", ";",":"};
+	
 	result = convertToLower(result);
 
 	for(int i = 0; i < symbols.size() && coincidence_found == false;i++){

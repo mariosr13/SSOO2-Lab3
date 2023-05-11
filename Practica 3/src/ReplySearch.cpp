@@ -7,7 +7,7 @@
 *
 *   Creation date       : 10/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the reply search class
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

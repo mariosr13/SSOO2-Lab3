@@ -1,19 +1,19 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *   Project             : Práctica 3 Sistemas Operativos II
 *
-*   Program name        : 
+*   Program name        : Search.cpp
 *
 *   Author              : Mario Serrano Romero/Alejandro Duran de la Morena
 *
 *   Creation date       : 9/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the class search
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "Search.hpp"
 
-int Search::getLineId(){
+int Search::getNLine(){
 	return this->n_line;
 }
 		

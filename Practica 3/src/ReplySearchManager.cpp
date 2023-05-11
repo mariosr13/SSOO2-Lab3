@@ -7,7 +7,7 @@
 *
 *   Creation date       : 10/05/2023 
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the class replay search manager
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -19,13 +19,11 @@ std::vector<ReplySearch> ReplySearchManager::getVector(){
 	return v_reply_search;
 }
 
-/* Method that insert a reply search in the vector */
 void ReplySearchManager::insert(ReplySearch request){
 	std::lock_guard<std::mutex> lockk(sem_mtx);
 	v_reply_search.push_back(request);
 }
 
-/* Method that return if the reply request exists */
 bool ReplySearchManager::findReply(int client_id){
 	bool flag = false;
 

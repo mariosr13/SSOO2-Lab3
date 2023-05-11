@@ -7,7 +7,7 @@
 *
 *   Creation Date       : 9/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the class search system
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -29,7 +29,7 @@ Client SearchSystem::getClient(int id){
 	return client;
 }
 
-/* Method that returns the SearchRequest acording to the relation 80-20 */ 
+// Method that returns the SearchRequest acording to the relation 80% (PRIME OF BOTH TYPES), 20% (FREE)
 SearchRequest SearchSystem::getRequest(){
 	int position = 0;
 	srand(time(NULL));
@@ -75,7 +75,6 @@ void SearchSystem::doSearchBook(SearchRequest request){
 	}
 }
 
-/* Method that do the search acording to the SearchRequest, finally it returns the limit of the user */
 int SearchSystem::doSearch(SearchRequest request, Client client, std::string text, int limit, std::priority_queue<Search, std::vector<Search>,PriorityFunction> &prio_q_pointer){
 	std::priority_queue<Search, std::vector<Search>,PriorityFunction> aux_prio_q;
 	int limit_aux = limit;
@@ -96,15 +95,14 @@ int SearchSystem::doSearch(SearchRequest request, Client client, std::string tex
 		aux_prio_q.pop();
 		prio_q_pointer.push(search);
         
-        //Dijo que hicieramos un control general del tipo de cliente y no estemos poniendo if else todo el rato
 		if(limit_aux == 0 && client.getTypeClient() == 2){
-			std::cout << GREEN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
-			std::cout << GREEN << "FREE client with id " << client.getClientId() << " without searchs." << std::endl;
-			std::cout << GREEN << "--------------------------------------------------------------------------------------" << std::endl;
+			std::cout << CYAN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
+			std::cout << CYAN << "FREE CLIENT WITH ID " << client.getClientId() << " WITHOUT SEARCH." << std::endl;
+			std::cout << CYAN << "--------------------------------------------------------------------------------------" << std::endl;
 		}else if(limit_aux == 0 && client.getTypeClient()  == 1){
-			std::cout << GREEN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
-			std::cout << GREEN << "PRIME client with id " << client.getClientId()<< " without balance." << std::endl;
-			std::cout << GREEN << "--------------------------------------------------------------------------------------" << std::endl;
+			std::cout << CYAN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
+			std::cout << CYAN << "PREMIUM WITH BALANCE CLIENT WITH ID " << client.getClientId() << " WITHOUT BALANCE." << std::endl;
+			std::cout << CYAN << "--------------------------------------------------------------------------------------" << std::endl;
 
 			PayRequest r(client.getClientId());
 			std::lock_guard<std::mutex> lk(sem_pay_req);
@@ -119,29 +117,28 @@ int SearchSystem::doSearch(SearchRequest request, Client client, std::string tex
 	return limit_aux;
 }
 
+// Method that will block if the queue is emty, and when completed a reply is created and inserted in a vector.
 void SearchSystem::operator()(){
 	while(1){
 		doPrioQVector();
-			
 		std::unique_lock<std::mutex> lock_queue(sem_search_sys);
-		/* The SearchSystem will be blocked if the queue of the search request is empty */
+
 		wait_search.wait(lock_queue, [] {return (v_search_request.getVector().size() != 0);});	
 		lock_queue.unlock();
 		sem_search_req.lock();
 		SearchRequest search_request = getRequest();
 		sem_search_req.unlock();
 
-		std::cout << GREEN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
-		std::cout << GREEN "Searching the word " << search_request.getWord() << " in all the texts for the client with id " << search_request.getClientId() << std::endl;
-		std::cout << GREEN << "--------------------------------------------------------------------------------------" << std::endl;
+		std::cout << CYAN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
+		std::cout << CYAN "Searching the word " << search_request.getWord() << " in the books for the client with id " << search_request.getClientId() << std::endl;
+		std::cout << CYAN << "--------------------------------------------------------------------------------------" << std::endl;
 
 		doSearchBook(search_request);
 				
-		std::cout << GREEN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
-		std::cout << GREEN <<"The search request of the client with id " << search_request.getClientId() << " has been completed, the results will be send." << std::endl;
-		std::cout << GREEN << "--------------------------------------------------------------------------------------" << std::endl;
+		std::cout << CYAN << "\n------------------------------------ SEARCH SYSTEM -----------------------------------" << std::endl;
+		std::cout << CYAN <<"The search request of the client with id " << search_request.getClientId() << " has finished, the results will be stored." << std::endl;
+		std::cout << CYAN << "--------------------------------------------------------------------------------------" << std::endl;
 					
-		/* When the SearchRequest has been completed, a ReplySearch is created and inserted in the reply_search_vector */
 		ReplySearch reply_search(search_request.getClientId(), prio_q_vector);
 		v_reply_search.insert(reply_search);
 		wait_client.notify_all();

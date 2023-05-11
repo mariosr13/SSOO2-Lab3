@@ -7,7 +7,7 @@
 *
 *   Creation date       : 9/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Definition of the class PaySystem
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

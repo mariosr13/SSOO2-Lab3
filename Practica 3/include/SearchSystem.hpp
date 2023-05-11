@@ -7,7 +7,7 @@
 *
 *   Creation Date       : 2/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Definition of the class search system
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

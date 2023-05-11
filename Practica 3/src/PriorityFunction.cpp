@@ -15,12 +15,13 @@
 #include <stdlib.h>
 #include "PriorityFunction.hpp"
 
+// Method that return the search with the most priority.
 int PriorityFunction::operator() (Search &a,Search &b){
 	if(a.getThread().getThreadId() == b.getThread().getThreadId()){     	
-		if(a.getLineId() == b.getLineId()){				
+		if(a.getNLine() == b.getNLine()){				
 			return a.getLinePosition() > b.getLinePosition();		
         }else{
-			return a.getLineId() > b.getLineId();			
+			return a.getNLine() > b.getNLine();			
         }
 	}
 	

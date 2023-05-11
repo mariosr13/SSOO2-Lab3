@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*   Proyect                 : Práctica 3 Sistemas Operativos II
+*   Project                 : Práctica 3 Sistemas Operativos II
 *
 *   Name of the program     : SearchRequest.cpp
 *

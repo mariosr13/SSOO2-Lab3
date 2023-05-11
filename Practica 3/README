@@ -1,0 +1,31 @@
+Programa realizado por: Mario Serrano Romero y Alejandro Durán de la Morena.
+
+- Objetivo: varios clientes se creean con diferentes roles, estos llaman a 
+            un sistema de busqueda de palabaras (escogida de forma aleatoria),
+            si el cliente es PREMIUM no tendrá límite de busquedas, los 
+            PREMIUM con saldo podrán recargarlo si este se gasta mediante un sistema 
+            de pago que sera automático, y los FREE terminarán cuando su límite 
+            se termine. Las busquedas se guardarán en archivos para mayor facilidad de lectura,
+            la información mostrada por pantalla serán las acciones de los diferentes sistemas.
+
+
+- Requisitos: para el correcto funcionamiento se necesitan lo siguiente ->
+                1. Carpeta src (todos los cpp del programa)
+                2. Carpeta include (todos los hpp del programa)
+                3. words.txt (Listado de posibles palabras a buscar)
+                4. Makefile
+                5. Libros (carpeta con los archivos ".txt")
+
+- Compilación y ejecución: para una correcta compilación des de la carpeta principal del 
+               programa, escribiremos el comando "make" en la terminal, si todo
+               es correcto, se ejecutara el programa y por pantalla iremos viendo
+               la ejecucion del mismo. Los resultados de busqueda de cada uno de los libros
+               se iran guardando dentro de cada una de las carpetas de los clientes y a su vez
+               todas esas carpetas estaran en una llamada "Clients".
+
+- Significado de colores:
+                ROJO: reservado apara los errores que puedan suceder durante la ejecución.
+                BLANCO: Información de la creación de un cliente.
+                VERDE: Información de la terminación de un cliente.
+                NARANJA: Información sobre el sistema de pago.
+                CYAN: Información sobre el sistema de busqueda.

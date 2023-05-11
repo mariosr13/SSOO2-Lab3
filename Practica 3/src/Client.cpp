@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *   Proyect                 : Práctica 3 Sistemas Operativos II
+ *   Project                 : Práctica 3 Sistemas Operativos II
  *
  *   Name of the program     : Client.cpp
  *
@@ -64,15 +64,15 @@ int Client::getLimitClient(){
 void Client::toString(){
     switch(type_client){
         case 0:
-            std::cout << "Client with id " << getClientId() + 1 << ", type "<< getTypeClient() << " and word " << getWordClient() << " has been created." << std::endl;   
+            std::cout << "Client with id " << getClientId() + 1 << ", type PREMIUM have word " << getWordClient() << " has been created." << std::endl;   
         break;
         
         case 1:
-            std::cout << "Client with id " << getClientId() + 1 << ", type "<< getTypeClient() << ", word " << getWordClient() << " and first balance " << getLimitClient() << " has been created." << std::endl;
+            std::cout << "Client with id " << getClientId() + 1 << ", type PREMIUM WITH BALANCE, word " << getWordClient() << " and first balance " << getLimitClient() << " has been created." << std::endl;
         break;
 
         case 2:
-            std::cout << "Client with id " << getClientId() + 1 << ", type "<< getTypeClient() << ", word " << getWordClient() << " and limit " << getLimitClient() << " has been created." << std::endl;
+            std::cout << "Client with id " << getClientId() + 1 << ", type FREE, word " << getWordClient() << " and limit " << getLimitClient() << " has been created." << std::endl;
         break;
     }
 }
@@ -135,46 +135,28 @@ bool Client::dirExists(std::string dir){
 	return false;
 }
 
-/* Method that create the time.txt in the Users directory 
-void Client::createTimeFile(double time){
-	std::string title;
-	char user_direction[30];
-
-	std::ofstream file;
-	file.open("./Users/user_" + std::to_string(getClientId() + 1) + "/User_time.txt", std::ios::out);
-	title = "The user with id " + std::to_string(id_client + 1) + " has taken since it was created until it he got the results a total time of " + std::to_string(time) + " seconds \n";
-	file << title;
-    
-	file.close();
-}
-*/
-
+// Show when a clients starts and finish a seach.
 int Client::operator()(int number){
-	std::cout << WHITE << "\n---------------------------------- CLIENT WITH ID " << id_client + 1<< " -----------------------------------" << std::endl;
+	std::cout << WHITE << "\n---------------------------------- CLIENT WITH ID " << id_client << " -----------------------------------" << std::endl;
 	toString();
 	std::cout << WHITE << " has been created." << std::endl;
 	std::cout << WHITE << "--------------------------------------------------------------------------------------" << std::endl;
-	// unsigned t1, t2;
+	
 	const int id = id_client;
-	// t1 = clock();
 	SearchRequest search_request = doSearchRequest();
 	v_search_request.insert(search_request);
 
-	/* When the SearchRequest is in the vector, notify the wait_search condition variable to unlock a SearchSystem */
+	// When the SearchRequest is in the vector, notify the wait_search condition variable to unlock a SearchSystem 
 	wait_search.notify_one();		
 	std::unique_lock<std::mutex> lock_client(sem_client);
-	/* It will be blocked if the reply_search_vector is empty and if this vector doesn't have a SearchReply with the id of the client */
+	// It will be blocked if the v_reply_search is empty and if this vector doesn't have a SearchReply with the id of the client
 	wait_client.wait(lock_client, [id] {return (v_reply_search.getVector().empty() == false && v_reply_search.findReply(id) == true);});
-
-	// t2 = clock();
-    // double time = (double(t2-t1)/CLOCKS_PER_SEC);
 	ReplySearch reply_search = v_reply_search.getReply(id);
 	createFiles(reply_search);
-	//createTimeFile(time);
 			
-	std::cout << WHITE << "---------------------------------- CLIENT WITH ID " << id_client + 1<< " ------------------------------------" << std::endl;
-	std::cout << WHITE << "The client with ID " << id_client + 1 << " has his results in his folder." << std::endl;
-	std::cout << WHITE << "--------------------------------------------------------------------------------------" << std::endl;
+	std::cout << GREEN << "---------------------------------- CLIENT WITH ID " << id_client << " ------------------------------------" << std::endl;
+	std::cout << GREEN << "The client with ID " << id_client << " has finished and his results has stored on his folder." << std::endl;
+	std::cout << GREEN << "--------------------------------------------------------------------------------------" << std::endl;
 			
 	return EXIT_SUCCESS;
 }

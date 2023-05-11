@@ -7,7 +7,7 @@
 *
 *   Creation date       : 10/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the class search request manager
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -72,7 +72,7 @@ int SearchRequestManager::getLimitedRequestPos(){
 	return position;
 }
 
-/* Method that remove the first SearchRequest of the Request_vector */
+// Method that remove the first request of the vector and advice the condition varible
 void SearchRequestManager::pop(){
 	std::lock_guard<std::mutex> lock(sem_mtx);
 
@@ -91,7 +91,6 @@ void SearchRequestManager::pop(){
 	v_request.erase(v_request.end());
 }
 
-/* Method that return the first SearchRequest of the Request_vector */
 SearchRequest SearchRequestManager::getFront(){
 	std::lock_guard<std::mutex> lock(sem_mtx);
 
@@ -100,13 +99,11 @@ SearchRequest SearchRequestManager::getFront(){
 	return request;
 }
 
-/* Method that insert a SearchRequest in the request_vector */
 void SearchRequestManager::insert(SearchRequest r){
 	std::lock_guard<std::mutex> lock(sem_mtx);
 	v_request.push_back(r);
 }
 
-/* Method that return true if there is a SearchRequest */
 bool SearchRequestManager::findRequest(int client_id){
 	bool flag = false;
 
@@ -121,7 +118,6 @@ bool SearchRequestManager::findRequest(int client_id){
 	return flag;
 }
 
-/* Method that return true if all the SearchRequests has the same priority */
 bool SearchRequestManager::areAllSame(){
 	bool same_type = false;
 	int counter = 0;

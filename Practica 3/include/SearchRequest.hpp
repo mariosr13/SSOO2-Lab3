@@ -7,7 +7,7 @@
  *
  *   Creation Date           : 2/05/2023
  *
- *   Purpose                 : Definition of the search request class
+ *   Purpose                 : Definition of the class SearchRequest
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

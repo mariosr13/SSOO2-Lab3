@@ -7,7 +7,7 @@
 *
 *   Creation date       : 10/05/2023
 *
-*   Purpose             : 
+*   Purpose             : Definitions of the main functions and all the includes used
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

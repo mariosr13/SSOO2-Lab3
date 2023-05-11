@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *   Proyect                 : Práctica 3 Sistemas Operativos II
+ *   Project                 : Práctica 3 Sistemas Operativos II
  *
  *   Name of the program     : GlobalVariables.hpp
  *
@@ -17,13 +17,10 @@
 #include <condition_variable> 
 #include <atomic>
 
-// Definition of the colors ->
-#define BLACK   "\x1B[30m"
+// Definition of the colors 
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
-#define MAGENTA "\x1b[35m"
+#define ORANGE  "\x1b[33m"
 #define CYAN    "\x1b[36m"
 #define WHITE   "\x1B[37m"
 
@@ -34,7 +31,7 @@
 
 std::vector<std::string> dictionary = {}; // Vector where words are introduced to be searched
 
-// The books where the words will be searched ->
+// The books where the words will be searched 
 std::vector<std::string> books = {"./Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt", "./Libros/21-LEYES-DEL-LIDERAZGO.txt", 
 "./Libros/VIVE-TU-SUEÑO.txt", "./Libros/El-oro-y-la-ceniza.txt", "./Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt", 
 "./Libros/ACTITUD-DE-VENDEDOR.txt", "./Libros/La-última-sirena.txt", "./Libros/prueba.txt", "./Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt"};

@@ -30,18 +30,17 @@ std::vector<Client> v_clients;
 
 int main(){
 	PaySystem pay_sys;
-	std::cout << YELLOW << "\nWelcome to SSOOIIGLE" << std::endl;
+	std::cout << WHITE << "\nWelcome to SSOOIIGLE" << std::endl;
 	installSignalHandler();
 	errorManage();
 	std::thread create_clients(createClients);
 	create_clients.detach();
 	createClientsDir();
 	std::thread create_client_threads(createClientThreads);
-	//create_client_threads.detach();
+	create_client_threads.detach();
 	createSearchSystemThreads();
 	std::thread thread_pay_system(pay_sys);	
 	thread_pay_system.join();
-	create_client_threads.join();
 	
 	return EXIT_SUCCESS;
 }
@@ -105,7 +104,6 @@ void createClientsDir(){
 	}
 }
 
-/* Method that return true if the WORDS_FILE exists */
 bool wordsFileExists(){
 	FILE *f;
 
@@ -116,7 +114,6 @@ bool wordsFileExists(){
 	}
 }
 
-/* Method that open the WORDS_FILE .txt, then it take every word of this text and it insert them into the dictionary vector */
 bool getWords(){
 	std::vector<std::string> words_vector = openFile(WORDS_FILE);
 	std::vector<std::string> words_split;
@@ -136,7 +133,6 @@ bool getWords(){
 	return false;
 }
 
-/* Method that finish the program if the WORDS_FILE is empty or if the books array is empty too */
 void errorManage(){
 	bool empty;
 

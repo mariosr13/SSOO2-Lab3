@@ -7,7 +7,7 @@
 *
 *   Creation date       : 10/05/2023 
 *
-*   Purpose             : 
+*   Purpose             : Implementation of the pay system class
 *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -21,6 +21,7 @@ Client PaySystem::getClient(int id){
 		if(v_clients[i].getClientId() == id){
 			Client client = v_clients[i];
 			find = true;
+			
 			return client;
 		}
 	}
@@ -28,6 +29,7 @@ Client PaySystem::getClient(int id){
 	return client;
 }
 
+// We use an condition varible to block the pay queue, a promise/future to get the balance and when this system ends we print a message.
 void PaySystem::operator()(){
 	while(1){
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -41,8 +43,8 @@ void PaySystem::operator()(){
 			std::cerr << "Error while waiting for the new balance... " << std::endl;
 		}
 				
-		std::cout << CYAN << "\n------------------------------------- PAY SYSTEM -------------------------------------" << std::endl;
-		std::cout << CYAN << "The PaymentRequest of client with ID " << client.getClientId() << " has been completed." << std::endl;
-		std::cout << CYAN << "--------------------------------------------------------------------------------------" << std::endl;
+		std::cout << ORANGE << "\n------------------------------------- PAY SYSTEM -------------------------------------" << std::endl;
+		std::cout << ORANGE << "The pay request of client with ID " << client.getClientId() << " has finished." << std::endl;
+		std::cout << ORANGE << "--------------------------------------------------------------------------------------" << std::endl;
 	}
 }
